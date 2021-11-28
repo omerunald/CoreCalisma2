@@ -1,0 +1,40 @@
+﻿@model Abc.UI.Model.ProductListViewModel
+
+@{ Layout = "_Layout"; }
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+    <div>
+        <table class="table table-bordered table-hover table-responsive-md table-striped">
+            <tr>
+                @{ int sayac = 1;}
+                <td>SıraNo</td>
+                <td>ProductName</td>
+                <td>Unit Price</td>
+                <td>Unit In Stock</td>
+            </tr>
+            @foreach (var item in Model.Product)
+            {
+<tr>
+    <td>@sayac</td>
+    <td>@item.ProductName</td>
+    <td>@item.UnitPrice</td>
+    <td>@item.UnitsInStock</td>
+</tr>
+sayac++;
+}
+        </table>
+
+    </div>
+    <product-list-pager current-category="@Model.CurrentCategory"
+                        current-page="@Model.CurrentPage"
+                        page-count="@Model.PageCount"
+                        page-size="@Model.PageSize">
+
+    </product-list-pager>
+    
+</body>
+</html>

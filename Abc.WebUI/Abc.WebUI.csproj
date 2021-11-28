@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Abc.Business\Abc.Business.csproj" />
+    <ProjectReference Include="..\Abc.Core\Abc.Core.csproj" />
+    <ProjectReference Include="..\Abc.DataAccess\Abc.DataAccess.csproj" />
+    <ProjectReference Include="..\Abc.Entity\Abc.Entity.csproj" />
+  </ItemGroup>
+
+</Project>

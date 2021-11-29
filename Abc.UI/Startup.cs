@@ -3,8 +3,10 @@ using Abc.Business.Concrete;
 using Abc.DataAccess.Abstract;
 using Abc.DataAccess.Concrete;
 using Abc.UI.Middlewares;
+using Abc.UI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,6 +34,9 @@ namespace Abc.UI
             services.AddScoped<IProductService, ProductManager>();
             services.AddSingleton<ICategoryDal, CategoryDal>();
             services.AddSingleton<ICategoryService, CategoryManager>();
+            services.AddSingleton<ICartSessionService, CartSessionService>();
+            services.AddSingleton<ICartService, CartService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSession();
             services.AddDistributedMemoryCache(); //sesonu aktif etmej için
         }
@@ -43,10 +48,10 @@ namespace Abc.UI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseSession();
             app.UseFileServer();
             app.UseNodeModules(env.ContentRootPath);
-            app.UseSession(); 
+        
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

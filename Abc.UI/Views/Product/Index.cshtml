@@ -15,6 +15,7 @@
                 <td>ProductName</td>
                 <td>Unit Price</td>
                 <td>Unit In Stock</td>
+                <td></td>
             </tr>
             @foreach (var item in Model.Product)
             {
@@ -23,6 +24,7 @@
     <td>@item.ProductName</td>
     <td>@item.UnitPrice</td>
     <td>@item.UnitsInStock</td>
+    <td><a class="btn btn-xs btn-success" asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@item.ProductId">addToCart</a></td>
 </tr>
 sayac++;
 }

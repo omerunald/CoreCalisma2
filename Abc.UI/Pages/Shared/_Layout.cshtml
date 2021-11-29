@@ -34,12 +34,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Dropdown
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+                     @await Component.InvokeAsync("CartSummary")
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0 mr-5">
@@ -56,6 +51,10 @@
         </div>
         <div class="col-md-10 float-left mt-5">
             <main role="main" class="pb-3">
+                @if (TempData["message"] != null)
+                {
+                    <div class="alert alert-success" role="alert">@TempData["message"]</div>
+                }
                 @RenderBody()
             </main>
         </div>

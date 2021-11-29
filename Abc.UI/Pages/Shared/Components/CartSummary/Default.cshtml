@@ -1,0 +1,14 @@
+﻿
+
+@model Abc.UI.Model.CartSummaryViewModel
+
+
+<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+    @foreach (var item in Model.Cart.CartLines)
+    {
+        <a class="dropdown-item">@item.Product.ProductName (@item.Quantity)  </a>
+
+    }
+    <a class="dropdown-item" style="text-align:center">Toplam Ücret : @Model.Cart.Total TL</a>
+</div>
+

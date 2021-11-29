@@ -37,7 +37,7 @@ namespace Abc.DataAccess.EntityFramework
         {
             using (TContext context = new TContext())
             {
-                return context.Set<TEntity>().FirstOrDefault();
+                return context.Set<TEntity>().Where(filter).FirstOrDefault();
             }
         }
 

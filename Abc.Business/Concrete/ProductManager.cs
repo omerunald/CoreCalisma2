@@ -30,6 +30,11 @@ namespace Abc.Business.Concrete
             return productDal.GetList();
         }
 
+        public Product GetById(int ProductId)
+        {
+            return productDal.Get(i=>i.ProductId == ProductId);
+        }
+
         public List<Product> ProductGetByCategories(int id)
         {
             return productDal.GetList(i => i.CategoryId == id || id == 0);

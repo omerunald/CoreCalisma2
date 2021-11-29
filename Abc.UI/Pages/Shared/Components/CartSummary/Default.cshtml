@@ -1,6 +1,4 @@
-﻿
-
-@model Abc.UI.Model.CartSummaryViewModel
+﻿@model Abc.UI.Model.CartSummaryViewModel
 
 
 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -9,6 +7,6 @@
         <a class="dropdown-item">@item.Product.ProductName (@item.Quantity)  </a>
 
     }
-    <a class="dropdown-item" style="text-align:center">Toplam Ücret : @Model.Cart.Total TL</a>
+    <a href="/Cart/CartList" class="dropdown-item text-primary" style="text-align:center">Sepete Git<h7>(Toplam: @Model.Cart.Total TL)</h7></a>
 </div>
 

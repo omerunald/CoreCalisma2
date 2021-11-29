@@ -25,7 +25,7 @@
                     <td>@item.Product.ProductName</td>
                     <td>@item.Product.UnitPrice</td>
                     <td>@item.Quantity</td>
-                    <td class="text-right"><a class="btn btn-danger text-right">Sepetten Çıkar</a></td>
+                    <td class="text-right"><a asp-controller="Cart" asp-action="Remove" asp-route-productId ="@item.Product.ProductId" class="btn btn-danger text-right">Sepetten Çıkar</a></td>
                 </tr>
                 sayac++;
             }

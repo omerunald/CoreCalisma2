@@ -15,13 +15,13 @@ namespace Abc.UI.Controllers
         private ICartSessionService _cartSessionService;
         private ICartService _cartService;
         private IProductService _productService;
-       
+
         public CartController(ICartSessionService cartSessionService, ICartService cartService, IProductService productService)
         {
             _cartSessionService = cartSessionService;
             _cartService = cartService;
             _productService = productService;
-      
+
         }
         public IActionResult AddToCart(int ProductId)
         {
@@ -41,6 +41,14 @@ namespace Abc.UI.Controllers
             };
             return View(cartSummaryViewModel);
 
+        }
+        public IActionResult Remove(int ProductId)
+        {
+            var cart = _cartSessionService.GetCart();
+            _cartService.RemoveFromCart(cart, ProductId);
+            _cartSessionService.SetCart(cart);
+            TempData.Add("message", String.Format("Ürün sepetten silindi!" ));
+            return RedirectToAction("CartList");
         }
     }
 }

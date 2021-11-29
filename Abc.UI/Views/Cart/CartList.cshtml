@@ -1,0 +1,48 @@
+﻿@model Abc.UI.Model.CartSummaryViewModel
+
+@{ Layout = "_Layout"; }
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+    <div>
+        <table class="table table-bordered table-hover table-responsive-md table-striped">
+            <tr>
+                @{ int sayac = 1;}
+                <td>SıraNo</td>
+                <td>ProductName</td>
+                <td>Unit Price</td>
+                <td>Quantity</td>
+
+                <td></td>
+            </tr>
+            @foreach (var item in Model.Cart.CartLines)
+            {
+                <tr>
+                    <td>@sayac</td>
+                    <td>@item.Product.ProductName</td>
+                    <td>@item.Product.UnitPrice</td>
+                    <td>@item.Quantity</td>
+                    <td class="text-right"><a class="btn btn-danger text-right">Sepetten Çıkar</a></td>
+                </tr>
+                sayac++;
+            }
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total</td>
+                <td class="text-right">
+                    <h3>
+                        <strong>@Model.Cart.Total TL</strong>
+                    </h3>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</body>
+</html>

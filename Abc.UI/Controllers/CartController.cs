@@ -1,5 +1,6 @@
 ﻿using Abc.Business.Abstract;
 using Abc.Business.Concrete;
+using Abc.UI.Model;
 using Abc.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -30,6 +31,16 @@ namespace Abc.UI.Controllers
             _cartSessionService.SetCart(cart);
             TempData.Add("message", String.Format("Ürün :{0} eklendi", productToBeAdded.ProductName));
             return RedirectToAction("Index", "Product");
+        }
+        public IActionResult CartList()
+        {
+            var cart = _cartSessionService.GetCart();
+            CartSummaryViewModel cartSummaryViewModel = new CartSummaryViewModel()
+            {
+                Cart = cart
+            };
+            return View(cartSummaryViewModel);
+
         }
     }
 }

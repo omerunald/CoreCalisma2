@@ -25,7 +25,7 @@
                     <td>@item.Product.ProductName</td>
                     <td>@item.Product.UnitPrice</td>
                     <td>@item.Quantity</td>
-                    <td class="text-right"><a asp-controller="Cart" asp-action="Remove" asp-route-productId ="@item.Product.ProductId" class="btn btn-danger text-right">Sepetten Çıkar</a></td>
+                    <td class="text-right"><a asp-controller="Cart" asp-action="Remove" asp-route-productId="@item.Product.ProductId" class="btn btn-danger text-right">Sepetten Çıkar</a></td>
                 </tr>
                 sayac++;
             }
@@ -34,10 +34,25 @@
                 <td></td>
                 <td></td>
                 <td>Total</td>
-                <td class="text-right">
+                <td>
                     <h3>
                         <strong>@Model.Cart.Total TL</strong>
                     </h3>
+                </td>
+             
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <a asp-controller="Product" asp-action="Index">Alışverişe Dön</a>
+                </td>
+                <td>
+                    <a asp-controller="Cart" asp-action="Complete">Alışverişi Tamamla</a>
+                </td>
+                <td>
+                   
                 </td>
             </tr>
         </table>

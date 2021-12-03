@@ -4,14 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Abc.UI</title>
-    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="~/css/site.css" />*@
+    @*
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />*@
     <link href="\node_modules\bootstrap\dist\css\bootstrap.css" rel="stylesheet" />
     <script src="\node_modules\jquery\dist\jquery.min.js"></script>
     <script src="\node_modules\bootstrap\dist\js\bootstrap.js"></script>
     <script src="\node_modules\jquery-validation\dist\jquery.validate.js"></script>
     <script src="\node_modules\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js"></script>
-    
+
 </head>
 <body>
     <div class="col-md-12">
@@ -32,45 +33,34 @@
 
                 </ul>
 
-                <ul class="nav navbar-nav navbar-right mr-5">
-                    <li class="nav-item dropdown" style="">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Sepetim
-                        </a>
-                     @await Component.InvokeAsync("CartSummary")
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0 mr-5">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
             </div>
 
         </nav>
     </div>
 
-        <div class="col-md-2 float-left mt-5">
-            @await Component.InvokeAsync("CategoryList")
-        </div>
-        <div class="col-md-10 float-left mt-5">
-            <main role="main" class="pb-3">
-                @if (TempData["message"] != null)
-                {
-                    <div class="alert alert-success" role="alert">@TempData["message"]</div>
-                }
-                @RenderBody()
-            </main>
-        </div>
-   
+    <div class="col-md-2 float-left mt-5">
+        @await Component.InvokeAsync("CategoryList")
+    </div>
+    <div class="col-md-10 float-left mt-5">
+        <main role="main" class="pb-3">
+            @if (TempData["message"] != null)
+            {
+            <div class="alert alert-danger" role="alert">@TempData["message"]</div>
+            }
+            @RenderBody()
+        </main>
+    </div>
+
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2021 - Abc.UI - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 
-    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>*@
+    @*
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>*@
 
     @RenderSection("Scripts", required: false)
 </body>

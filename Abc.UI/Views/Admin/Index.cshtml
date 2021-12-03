@@ -1,0 +1,30 @@
+﻿@model Abc.UI.Model.ProductListViewModel
+
+@{ 
+    Layout = "_AdminLayout";
+}
+<a class="btn btn-primary" asp-controller="Admin" asp-action="Add">Ürün Ekle</a>
+
+    <table class="table mt-2 table-bordered">
+        <tr>
+            @{ int sayac = 1;}
+            <td>SıraNo</td>
+            <td>ProductName</td>
+            <td>Unit Price</td>
+            <td>Unit In Stock</td>
+            <td></td>
+            <td></td>
+        </tr>
+        @foreach (var item in Model.Product)
+        {
+    <tr>
+        <td>@sayac</td>
+        <td>@item.ProductName</td>
+        <td>@item.UnitPrice</td>
+        <td>@item.UnitsInStock</td>
+        <td><a class="btn btn-xs btn-primary" asp-controller="Admin" asp-action="Update" asp-route-productId="@item.ProductId">Update</a></td>
+        <td><a class="btn btn-xs btn-danger" asp-controller="Admin" asp-action="Delete" asp-route-productId="@item.ProductId">Delete</a></td>
+    </tr>
+            sayac++;
+        }
+    </table>

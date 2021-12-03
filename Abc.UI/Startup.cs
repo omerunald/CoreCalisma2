@@ -2,11 +2,14 @@ using Abc.Business.Abstract;
 using Abc.Business.Concrete;
 using Abc.DataAccess.Abstract;
 using Abc.DataAccess.Concrete;
+using Abc.UI.Entities;
 using Abc.UI.Middlewares;
 using Abc.UI.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -37,6 +40,8 @@ namespace Abc.UI
             services.AddSingleton<ICartSessionService, CartSessionService>();
             services.AddSingleton<ICartService, CartService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddDbContext<CustomIdentityDbContext>(options => options.UseSqlServer("Server =.; Database = Northwind; Trusted_Connection = True"));
+            services.AddIdentity<CustomIdentityUser, CustomIdentityRole>().AddEntityFrameworkStores<CustomIdentityDbContext>().AddDefaultTokenProviders();
             services.AddSession();
             services.AddDistributedMemoryCache(); //sesonu aktif etmej için
         }
@@ -51,7 +56,7 @@ namespace Abc.UI
             app.UseSession();
             app.UseFileServer();
             app.UseNodeModules(env.ContentRootPath);
-        
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

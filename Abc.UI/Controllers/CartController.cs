@@ -1,5 +1,6 @@
 ﻿using Abc.Business.Abstract;
 using Abc.Business.Concrete;
+using Abc.Entity.Concrete;
 using Abc.UI.Model;
 using Abc.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +50,23 @@ namespace Abc.UI.Controllers
             _cartSessionService.SetCart(cart);
             TempData.Add("message", String.Format("Ürün sepetten silindi!" ));
             return RedirectToAction("CartList");
+        }
+        public IActionResult Complete()
+        {
+            var shippingDetailsViewModel = new ShippingDetailsViewModel()
+            {
+                ShippingDetails = new Entity.Concrete.ShippingDetails()
+            };
+            return View(shippingDetailsViewModel);
+        }
+        [HttpPost]
+        public  IActionResult Complete(ShippingDetailsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                return View();
+            }
+            return View(model.ShippingDetails.FirstName);
         }
     }
 }

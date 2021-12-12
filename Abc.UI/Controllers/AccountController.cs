@@ -26,17 +26,64 @@ namespace Abc.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterViewModel model)
+        [ValidateAntiForgeryToken]
+        public IActionResult Register(RegisterViewModel registerViewModel)
         {
             if (ModelState.IsValid)
             {
                 CustomIdentityUser user = new CustomIdentityUser()
                 {
-                    UserName = model.UserName,
-                    PasswordHash = model.Password
+                    UserName = registerViewModel.UserName,
+                    Email = registerViewModel.Email
                 };
+                IdentityResult result = _userManager.CreateAsync(user, registerViewModel.Password).Result; //Kullanıcı Oluşturma
+                if (result.Succeeded)
+                {
+                    if (!_roleManager.RoleExistsAsync("Admin").Result) //Role Oluşturma
+                    {
+                        CustomIdentityRole role = new CustomIdentityRole()
+                        {
+                            Name = "Admin"
+                        };
+                        IdentityResult roleResult = _roleManager.CreateAsync(role).Result;
+                        if (!roleResult.Succeeded)
+                        {
+                            ModelState.AddModelError("", "We cannot role admin role");
+                            return View(registerViewModel);
+                        }
+                    }
+                }
+                _userManager.AddToRoleAsync(user, "Admin");
+                return RedirectToAction("Login", "Account");
             }
+            return View(registerViewModel);
+        }
+        public IActionResult Login()
+        {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(LoginViewModel loginViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = _signInManager.PasswordSignInAsync(loginViewModel.UserName,loginViewModel.Password,loginViewModel.RememberMe,false).Result;
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index","Admin");
+                }
+                ModelState.AddModelError("","Invalid login");
+            }
+            return View(loginViewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult LogOff()
+        {
+            _signInManager.SignOutAsync().Wait();
+            return RedirectToAction("Login");
         }
     }
 }

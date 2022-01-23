@@ -30,38 +30,45 @@ namespace Abc.UI.Controllers
             if (list != null)
             {
 
-                var cacheKey = "Time";
-                var existingTime = _distributedCache.GetString(cacheKey); // Daha önceden bir cache var mı?
 
-                existingTime = DateTime.Now.ToString(); // Zaman Bilgisi 
-                DistributedCacheEntryOptions options = new DistributedCacheEntryOptions(); // Cache süresi ile ilgili işlemler için instance oluşturuldu.
-
-                options.AbsoluteExpiration = DateTime.Now.AddSeconds(25); // Cache ömrü 1 dakika verildi.
                 var pers = _distributedCache.Get("category");
                 var personString = Encoding.UTF8.GetString(pers);
                 var person = JsonConvert.DeserializeObject<List<Category>>(personString);
 
-                 
-                _distributedCache.SetString("category", JsonConvert.SerializeObject(categoryService.GetAllCategories()));
+                //_distributedCache.SetString("category", JsonConvert.SerializeObject(categoryService.GetAllCategories()),options);
+
+
 
 
                 return View(person);
-        
+
 
             }
 
 
             else
             {
+                var cacheKey = "Time";
+                var existingTime = _distributedCache.GetString(cacheKey); // Daha önceden bir cache var mı?
+
+                existingTime = DateTime.Now.ToString(); // Zaman Bilgisi 
+                DistributedCacheEntryOptions options = new DistributedCacheEntryOptions(); // Cache süresi ile ilgili işlemler için instance oluşturuldu.
+                var saat = DateTime.Now;
+                options.AbsoluteExpiration = DateTime.Now.AddSeconds(60); // Cache ömrü 1 dakika verildi.
 
                 var data = JsonConvert.SerializeObject(categoryService.GetAllCategories());
-                _distributedCache.SetString("category", data);
+                _distributedCache.SetString("category", data,options);
                 return View(categoryService.GetAllCategories());
 
             }
 
 
 
+        }
+
+        public void RemoveCache()
+        {
+            _distributedCache.Remove("category");
         }
     }
 }

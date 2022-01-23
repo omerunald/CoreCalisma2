@@ -3,6 +3,7 @@ using Abc.Entity.Concrete;
 using Abc.UI.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +11,17 @@ using System.Threading.Tasks;
 
 namespace Abc.UI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AdminController : Controller
     {
         IProductService _productService;
         ICategoryService _categoryService;
-        public AdminController(IProductService productService, ICategoryService categoryService)
+        IDistributedCache _distributedCache;
+        public AdminController(IProductService productService, ICategoryService categoryService,IDistributedCache distributedCache)
         {
             _productService = productService;
             _categoryService = categoryService;
+            _distributedCache = distributedCache;
         }
         public IActionResult Index()
         {
@@ -31,10 +34,13 @@ namespace Abc.UI.Controllers
 
         public IActionResult Add()
         {
+           
             var model = new ProductAddViewModel()
             {
+
                 Product = new Product(),
                 Categories = _categoryService.GetAllCategories()
+
             };
             return View(model);
         }

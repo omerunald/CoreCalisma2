@@ -13,9 +13,9 @@ namespace Abc.UI.Model
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Required]
-        [DataType(DataType.Password)]
-        public string ComfirdPassword { get; set; }
+        //[Required]
+        //[DataType(DataType.Password)]
+        //public string ComfirdPassword { get; set; }
         [Required]
         public string Email { get; set; }
 

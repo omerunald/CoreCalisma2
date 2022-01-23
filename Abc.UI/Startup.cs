@@ -44,6 +44,9 @@ namespace Abc.UI
             services.AddIdentity<CustomIdentityUser, CustomIdentityRole>().AddEntityFrameworkStores<CustomIdentityDbContext>().AddDefaultTokenProviders();
             services.AddSession();
             services.AddDistributedMemoryCache(); //sesonu aktif etmej için
+            services.AddStackExchangeRedisCache(option =>
+            option.Configuration = "127.0.0.1:6379"
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +59,8 @@ namespace Abc.UI
             app.UseSession();
             app.UseFileServer();
             app.UseNodeModules(env.ContentRootPath);
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
